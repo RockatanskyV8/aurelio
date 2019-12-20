@@ -10,6 +10,7 @@ const paths =
 }
 
 
-router.use('/mssg', paths['mssg'])
+router.use('/mssg/users/', paths['mssg'])
+router.use('/mssg/posts/', paths['mssg'])
 
 module.exports = router;

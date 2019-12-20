@@ -3,22 +3,34 @@
 const express    = require('express');
 const controller = require('../../controller/controller');
 
-let paths = ['/users', '/posts'];
-
 const router = express.Router();
 
+const routes = [
+  { method: 'get',
+    path: '/get',
+    action: controller.rule
+  },
+  { method: 'get',
+    path: '/specific/:id',
+    action: controller.rule
+  },
+  { method: 'post',
+    path: '/create',
+    action: controller.rule
+  },
+  { method: 'put',
+    path: '/update',
+    action: controller.rule
+  },
+  { method: 'delete',
+    path: '/delete',
+    action: controller.rule
+  }
+]
 
-router.get    (paths[0] + '/get'   ,      controller.rule);
-router.get    (paths[0] + '/specific/:p', controller.rule);
-router.post   (paths[0] + '/create',      controller.rule);
-router.put    (paths[0] + '/update',      controller.rule);
-router.delete (paths[0] + '/delete',      controller.rule);
+const createRoute  = ( route )  => router[ route.method ]( route.path, route.action )
+const createRoutes = ( routes ) => routes.map( createRoute )
 
-router.get    (paths[1] + '/get'   ,      controller.rule);
-router.get    (paths[1] + '/specific/:p', controller.rule);
-router.post   (paths[1] + '/create',      controller.rule);
-router.put    (paths[1] + '/update',      controller.rule);
-router.delete (paths[1] + '/delete',      controller.rule);
-
+createRoutes( routes )
 
 module.exports = router;
