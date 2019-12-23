@@ -6,11 +6,17 @@ const router     = express();
 
 const paths =
 {
-'mssg' : require('./mssg/mssg')
+  'mssg' : require('./mssg/mssg')
 }
 
+const routes = [
+  { path: '/mssg/users', action: paths['mssg'] },
+  { path: '/mssg/posts', action: paths['mssg'] }
+]
 
-router.use('/mssg/users/', paths['mssg'])
-router.use('/mssg/posts/', paths['mssg'])
+const createRoute  = ( route )  => router[ 'use' ]( route.path, route.action )
+const createRoutes = ( routes ) => routes.map( createRoute )
+
+createRoutes( routes )
 
 module.exports = router;
