@@ -3,10 +3,7 @@
 const express    = require('express');
 const controller = require('../controller/controller');
 const router     = express();
-const fs         = require('fs');
-
-const listFilesIn = ( path ) => fs.readdirSync( path )
-const removeJSExtension = ( action ) => action.replace( '.js', '' )
+const fileList   = require('../read-files')('./src/routes/actions')
 
 const createAction = ( action ) => ( {
   [ action ]: require( `./actions/${ action }` )
@@ -15,7 +12,6 @@ const createAction = ( action ) => ( {
 const toController = ( obj, action ) => Object.assign( obj, createAction( action ) )
 const createController = ( actions ) => actions.reduce( toController, {} )
 
-const fileList = (listFilesIn( './src/routes/actions' ).map( removeJSExtension ))
 const paths = createController( fileList )
 
 const routes = [
