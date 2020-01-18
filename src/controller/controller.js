@@ -1,15 +1,7 @@
 'use strict'
 
-const { Pool } = require('pg')
 const repos    = {'mssg' : require('./repositories/mssg')}
-
-
-const cliente = new Pool({
-    user : "postgres", password : null, host : "localhost",
-    port : 5432,       database : "mssg"
-  });
-
-cliente.connect();
+const cliente  = require('../db/cliente') 
 
 function getReqInfo(req){
   let result = []
